@@ -2,6 +2,7 @@ package com.seguras.newsapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.seguras.newsapi.databinding.ActivityMainBinding
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity(), OnResClickListener {
 
         initRecyclerView()
         getMostPopular()
-
     }
 
     fun getMostPopular(){
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity(), OnResClickListener {
             val art: List<Resultado> = respuesta?.results ?: emptyList()
             runOnUiThread {
                 if (call.isSuccessful) {
+                    Log.i("INFO", art.first().toString())
                     articulos.clear()
                     articulos.addAll(art)
                     adapter.notifyDataSetChanged()
@@ -56,7 +57,6 @@ class MainActivity : AppCompatActivity(), OnResClickListener {
         adapter = ResultadoAdapter(articulos, this)
         binding.rvArticulos.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.rvArticulos.adapter = adapter
-
     }
 
     override fun onResItemClicked(position: Int){

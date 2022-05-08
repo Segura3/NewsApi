@@ -12,8 +12,11 @@ class ResultadoViewHolder(view: View): RecyclerView.ViewHolder(view) {
         with(binding){
             tvTitle.text = item.title
             tvDate.text = item.published_date
-            //tvUrl.text = item.url
-            Picasso.get().load(item.media[0].metadata[0].urlmetadata).into(binding.ivFoto)
+            if(item.media.isEmpty()){
+                binding.ivFoto.setImageResource(R.drawable.nytlogo)
+            }else{
+                Picasso.get().load(item.media.first().metadata.first().urlmetadata).into(binding.ivFoto)
+            }
         }
     }
 }
